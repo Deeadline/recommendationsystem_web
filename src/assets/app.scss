@@ -1,0 +1,120 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: 100%;
+  display: flex;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &, &::before, &::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.container {
+  padding: 1rem;
+}
+
+mat-card-header .mat-card-header-text {
+  margin-left: 0;
+  border-bottom: 1px solid #ffd740;
+}
+
+app-core {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+app-layout-auth {
+  .auth-content {
+    background: #f5f5f5;
+    flex: 1;
+  }
+
+  app-auth-login {
+    mat-card {
+      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+
+      mat-card-header {
+        margin-bottom: 1.2rem;
+      }
+    }
+  }
+}
+
+app-layout-default {
+  mat-sidenav-container {
+    background: #f5f5f5;
+    width: 100vw;
+    height: 100vh;
+
+    mat-sidenav {
+      box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+      width: 250px;
+
+      a {
+        display: flex !important;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5rem;
+        text-decoration: none;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+        padding: 0 1rem;
+        position: relative;
+
+        mat-icon {
+          padding-right: 0.75rem;
+        }
+      }
+
+      mat-list-item {
+        color: rgba(0, 0, 0, .54);
+        display: flex;
+        align-items: center;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+
+        &:hover {
+          cursor: pointer;
+          background: whitesmoke;
+        }
+
+        &:not(:first-of-type) {
+          border-top: 1px solid #efefef;
+        }
+      }
+    }
+
+    .app-container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      padding: 1.5rem;
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-card-actions {
+  margin-bottom: 0;
+}

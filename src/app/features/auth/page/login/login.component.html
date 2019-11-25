@@ -1,0 +1,47 @@
+<div class="container" *ngIf="!showSpinner else loader">
+  <div class="card-wrapper">
+    <mat-card class="mat-elevation-z1">
+      <mat-card-header>
+        <mat-card-title>
+          <h2>Login</h2>
+        </mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="form" (ngSubmit)="login()" autocomplete="new-password">
+        <mat-card-content>
+          <mat-form-field>
+            <mat-error *ngIf="form.get('email').hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+            <input matInput placeholder="email" formControlName="email" autocomplete="new-password">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-error *ngIf="form.get('password').hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+            <input matInput type="password" placeholder="password" formControlName="password"
+                   autocomplete="new-password">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary">
+            Login
+          </button>
+        </mat-card-actions>
+      </form>
+      <mat-card-actions>
+        Don't have an account?
+        <button type="button" mat-raised-button color="warn" (click)="register()">
+          <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
+          Register
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #loader>
+  <mat-spinner color="accent" mode="indeterminate" *ngIf="showSpinner"></mat-spinner>
+</ng-template>
