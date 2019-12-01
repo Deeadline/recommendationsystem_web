@@ -14,7 +14,8 @@ import {AuthGuard} from './guard/auth.guard';
 import {AppLayoutComponent} from './layout/app/app-layout.component';
 import {AuthModule} from '../features/auth/auth.module';
 import {MovieModule} from '../features/movie/movie.module';
-import {HttpService} from './service/http.service';
+import {ApiModule} from '../api/api.module';
+import {AuthDataProvider} from './data-provider/auth.data-provider';
 
 const routes: Routes = [
   {
@@ -38,15 +39,18 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    ApiModule.forRoot(),
     RouterModule.forRoot(routes),
     AuthModule,
     MovieModule,
     SharedModule,
-
   ],
   exports: [
     RouterModule,
     CoreComponent
+  ],
+  providers: [
+    AuthDataProvider
   ]
 })
 export class CoreModule {
@@ -62,7 +66,6 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
-        HttpService,
         AuthService,
         AuthGuard,
         {

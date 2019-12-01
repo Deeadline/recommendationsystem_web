@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UserLoginViewModel} from '../model/user-login.view.model';
-import {HttpService} from './http.service';
 import {map, tap} from 'rxjs/operators';
 import {UserRegisterViewModel} from '../model/user-register.view.model';
+import {AuthDataProvider} from '../data-provider/auth.data-provider';
 
 @Injectable()
 export class AuthService {
 
   private tokenKey = 'jwt-token';
 
-  constructor(private httpService: HttpService) {
+  constructor(private authDataProvider: AuthDataProvider) {
   }
 
   public isAuthenticated(): boolean {
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   public login(user: UserLoginViewModel): Observable<boolean> {
-    return this.httpService.login(user).pipe(
+    return this.authDataProvider.login(user).pipe(
       map((token) => {
         this.setToken(token);
         return true;
@@ -35,6 +35,6 @@ export class AuthService {
   }
 
   public register(user: UserRegisterViewModel): Observable<boolean> {
-    return this.httpService.register(user).pipe(tap((res) => console.log(res)));
+    return this.authDataProvider.register(user).pipe(tap((res) => console.log(res)));
   }
 }
