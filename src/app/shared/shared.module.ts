@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
   MatButtonModule,
-  MatCardModule,
-  MatFormFieldModule,
+  MatCardModule, MatChipsModule,
+  MatFormFieldModule, MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatListModule,
+  MatListModule, MatPaginatorModule,
   MatProgressSpinnerModule,
-  MatSidenavModule,
+  MatSidenavModule, MatTableModule,
   MatTooltipModule
 } from '@angular/material';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -30,7 +30,11 @@ library.add(fas);
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatTooltipModule,
-    FontAwesomeModule
+    MatPaginatorModule,
+    FontAwesomeModule,
+    MatChipsModule,
+    MatTableModule,
+    MatGridListModule
   ],
   exports: [
     MatCardModule,
@@ -42,7 +46,11 @@ library.add(fas);
     MatButtonModule,
     FontAwesomeModule,
     MatTooltipModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatChipsModule,
+    MatTableModule,
+    MatGridListModule
   ]
 })
 export class SharedModule {

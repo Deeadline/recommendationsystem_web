@@ -1,5 +1,6 @@
 import {CoreViewModel} from '../../../core/model/core.view.model';
 import {CommentApiModel} from '../../../api/model/comment.api.model';
+import {FormGroup} from '@angular/forms';
 
 export class MovieCommentViewModel extends CoreViewModel<CommentApiModel> {
   public id: number = null;
@@ -25,5 +26,9 @@ export class MovieCommentViewModel extends CoreViewModel<CommentApiModel> {
 
   toApiModel(): CommentApiModel {
     return Object.assign(this.apiModel, this);
+  }
+
+  applyForm(form: FormGroup) {
+    Object.assign(this, form.value);
   }
 }

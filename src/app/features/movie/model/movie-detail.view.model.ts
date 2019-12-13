@@ -3,6 +3,7 @@ import {MovieDetailApiModel} from '../../../api/model/movie-detail.api.model';
 import {GenreViewModel} from './genre.view.model';
 import {MovieCommentViewModel} from './movie-comment.view.model';
 import {MovieFeedbackViewModel} from './movie-feedback.view.model';
+import {FormGroup} from '@angular/forms';
 
 export class MovieDetailViewModel extends CoreViewModel<MovieDetailApiModel> {
   public id: number = null;
@@ -36,5 +37,8 @@ export class MovieDetailViewModel extends CoreViewModel<MovieDetailApiModel> {
       genresIds: this.genres.map(genre => genre.id),
       numberOfVotes: this.numberOfVotes
     });
+  }
+  applyForm(form: FormGroup) {
+    Object.assign(this, form.value);
   }
 }

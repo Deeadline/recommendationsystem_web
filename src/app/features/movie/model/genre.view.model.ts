@@ -1,5 +1,6 @@
 import {CoreViewModel} from '../../../core/model/core.view.model';
 import {GenreApiModel} from '../../../api/model/genre.api.model';
+import {FormGroup} from '@angular/forms';
 
 export class GenreViewModel extends CoreViewModel<GenreApiModel> {
   public id: number = null;
@@ -20,5 +21,9 @@ export class GenreViewModel extends CoreViewModel<GenreApiModel> {
       id: this.id,
       name: this.name,
     });
+  }
+
+  applyForm(form: FormGroup) {
+    Object.assign(this, form.value);
   }
 }

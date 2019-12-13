@@ -1,4 +1,4 @@
-import {Exclude, Expose, Transform} from 'class-transformer';
+import {Exclude, Expose, Type} from 'class-transformer';
 import {MovieFeedbackApiModel} from './movie-feedback.api.model';
 
 @Exclude()
@@ -22,6 +22,6 @@ export class MovieDetailApiModel {
   public numberOfVotes: number;
 
   @Expose()
-  @Transform(() => MovieFeedbackApiModel)
+  @Type(() => MovieFeedbackApiModel)
   public feedback: MovieFeedbackApiModel;
 }

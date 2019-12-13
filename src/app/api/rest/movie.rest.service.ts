@@ -52,8 +52,8 @@ export class MovieRestService {
       );
   }
 
-  public getRecommendations(userId: number): Observable<MovieApiModel[]> {
-    return this.httpService.get<MovieApiModel[]>(`/api/movies/recommendation/${userId}`)
+  public getRecommendations(): Observable<MovieApiModel[]> {
+    return this.httpService.get<MovieApiModel[]>(`/api/movies/recommendation/`)
       .pipe(
         map((result) => plainToClass(MovieApiModel, result as object[]))
       );

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MovieRestService} from '../../../api/rest/movie.rest.service';
-import {forkJoin, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
 import {MovieApiModel} from '../../../api/model/movie.api.model';
 import {MovieViewModel} from '../model/movie.view.model';
@@ -21,28 +21,33 @@ export class MovieDataProvider {
   public getList(): Observable<MovieViewModel[]> {
     return this.movieRestService.getAll()
       .pipe(
-        map((movies: MovieApiModel[]) => movies.map(movie => {
-          const viewModel = new MovieViewModel(movie);
-          this.getAllGenres()
+        mergeMap((movies: MovieApiModel[]) => {
+          return this.getAllGenres()
             .pipe(
-              map(result => result.filter(r => movie.genresIds.indexOf(r.id) === 0))
-            ).subscribe(genres => viewModel.genres = genres);
-          return viewModel;
-        }))
+              map((result) => movies.map((movie) => {
+                const viewModel = new MovieViewModel(movie);
+                viewModel.genres = result.filter(r => movie.genresIds.includes(r.id));
+                return viewModel;
+              }))
+            );
+        })
       );
   }
 
   public getMovie(id: number): Observable<MovieDetailViewModel> {
     return this.movieRestService.getById(id)
       .pipe(
-        map((movie: MovieDetailApiModel) => {
-          const viewModel = new MovieDetailViewModel(movie);
-          viewModel.currentUserFeedback = new MovieFeedbackViewModel(movie.feedback);
-          this.getAllGenres()
+        mergeMap((movie: MovieDetailApiModel) => {
+          return this.getAllGenres()
             .pipe(
-              map((result: GenreViewModel[]) => result.filter(r => movie.genresIds.indexOf(r.id) === 0))
-            ).subscribe(genres => viewModel.genres = genres);
-          return viewModel;
+              map((result) => {
+                const viewModel = new MovieDetailViewModel(movie);
+                viewModel.currentUserFeedback =
+                  movie.feedback !== null ? new MovieFeedbackViewModel(movie.feedback) : new MovieFeedbackViewModel();
+                viewModel.genres = result.filter(r => movie.genresIds.includes(r.id));
+                return viewModel;
+              })
+            );
         }),
         mergeMap((movie: MovieDetailViewModel) => {
           return this.movieRestService.getComments(movie.id)
@@ -56,17 +61,19 @@ export class MovieDataProvider {
       );
   }
 
-  public getRecommendations(userId: number): Observable<MovieViewModel[]> {
-    return this.movieRestService.getRecommendations(userId)
+  public getRecommendations(): Observable<MovieViewModel[]> {
+    return this.movieRestService.getRecommendations()
       .pipe(
-        map((movies: MovieApiModel[]) => movies.map(movie => {
-          const viewModel = new MovieViewModel(movie);
-          this.getAllGenres()
+        mergeMap((movies: MovieApiModel[]) => {
+          return this.getAllGenres()
             .pipe(
-              map(result => result.filter(r => movie.genresIds.indexOf(r.id) === 0))
-            ).subscribe(genres => viewModel.genres = genres);
-          return viewModel;
-        }))
+              map((result) => movies.map((movie) => {
+                const viewModel = new MovieViewModel(movie);
+                viewModel.genres = result.filter(r => movie.genresIds.includes(r.id));
+                return viewModel;
+              }))
+            );
+        })
       );
   }
 

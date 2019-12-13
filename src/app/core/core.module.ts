@@ -20,8 +20,8 @@ import {AuthDataProvider} from './data-provider/auth.data-provider';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'app',
-    pathMatch: 'full',
+    redirectTo: 'auth/login',
+    pathMatch: 'full'
   },
   {
     path: 'app',

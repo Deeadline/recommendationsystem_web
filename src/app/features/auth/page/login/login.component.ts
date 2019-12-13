@@ -35,7 +35,7 @@ export class AuthLoginComponent implements OnInit {
     if (this.form.valid) {
       this.authService.login(Object.assign(new UserLoginViewModel(), this.form.value))
         .subscribe(
-          () => this.router.navigate(['/app/dashboard']),
+          () => this.router.navigate(['/app']),
           (err) => {
             console.log(err);
           });

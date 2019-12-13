@@ -35,6 +35,10 @@ export class AuthService {
   }
 
   public register(user: UserRegisterViewModel): Observable<boolean> {
-    return this.authDataProvider.register(user).pipe(tap((res) => console.log(res)));
+    return this.authDataProvider
+      .register(user)
+      .pipe(
+        tap((res) => console.log(res))
+      );
   }
 }

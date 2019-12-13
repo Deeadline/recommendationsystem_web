@@ -2,8 +2,9 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AppLayoutComponent} from '../../core/layout/app/app-layout.component';
 import {AuthGuard} from '../../core/guard/auth.guard';
-import {MovieRecommendationComponent} from './movie-recommendation/movie-recommendation.component';
-import {MovieListComponent} from './movie-list/movie-list.component';
+import {MovieRecommendationComponent} from './containers/movie-recommendation/movie-recommendation.component';
+import {MovieListComponent} from './containers/movie-list/movie-list.component';
+import {MovieDetailComponent} from './containers/movie-detail/movie-detail.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,13 @@ const routes: Routes = [
         component: MovieListComponent,
         data: {
           title: 'Movies'
+        }
+      },
+      {
+        path: ':id/detail',
+        component: MovieDetailComponent,
+        data: {
+          title: 'Detail movie'
         }
       }
     ]
