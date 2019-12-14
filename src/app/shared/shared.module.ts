@@ -1,13 +1,14 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatCardModule, MatChipsModule,
   MatFormFieldModule, MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule, MatPaginatorModule,
-  MatProgressSpinnerModule,
+  MatProgressSpinnerModule, MatSelectModule,
   MatSidenavModule, MatTableModule,
   MatTooltipModule
 } from '@angular/material';
@@ -34,7 +35,9 @@ library.add(fas);
     FontAwesomeModule,
     MatChipsModule,
     MatTableModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatCardModule,
@@ -50,7 +53,9 @@ library.add(fas);
     MatPaginatorModule,
     MatChipsModule,
     MatTableModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ]
 })
 export class SharedModule {

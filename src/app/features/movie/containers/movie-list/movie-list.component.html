@@ -1,7 +1,32 @@
 <mat-card class="wrapper" *ngIf="!showSpinner else loader">
-  <mat-card-title>
-    Movie list
-  </mat-card-title>
+  <mat-card-header>
+    <mat-card-title>
+      Movie list
+    </mat-card-title>
+    <div class="select-wrapper">
+      <div class="genre-wrapper">
+        <mat-form-field>
+          <mat-label>Genres</mat-label>
+          <mat-select multiple (selectionChange)="onSelectChange2($event)">
+            <mat-option *ngFor="let genre of genres"
+                        [value]="genre">{{genre.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="autocomplete-wrapper">
+        <input type="text" placeholder="Search movie by title" matInput [formControl]="searchControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async"
+                      [value]="option"
+                      (onSelectionChange)="onSelect(option)">
+            {{option.title}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon>search</mat-icon>
+      </div>
+    </div>
+  </mat-card-header>
   <mat-card-content>
     <mat-card class="card-body" *ngFor="let movie of movies" [routerLink]="['/app','movies', movie.id, 'detail']"
               style="cursor: pointer;">

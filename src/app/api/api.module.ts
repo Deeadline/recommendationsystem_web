@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthRestService} from './rest/auth.rest.service';
 import {MovieRestService} from './rest/movie.rest.service';
+import {UserRestService} from './rest/user.rest.service';
 
 @NgModule({
   declarations: [],
@@ -12,7 +13,8 @@ import {MovieRestService} from './rest/movie.rest.service';
   ],
   providers: [
     AuthRestService,
-    MovieRestService
+    MovieRestService,
+    UserRestService
   ]
 })
 export class ApiModule {
@@ -21,7 +23,8 @@ export class ApiModule {
       ngModule: ApiModule,
       providers: [
         AuthRestService,
-        MovieRestService
+        MovieRestService,
+        UserRestService
       ]
     };
   }

@@ -16,6 +16,7 @@ import {AuthModule} from '../features/auth/auth.module';
 import {MovieModule} from '../features/movie/movie.module';
 import {ApiModule} from '../api/api.module';
 import {AuthDataProvider} from './data-provider/auth.data-provider';
+import {RoleGuard} from './guard/role.guard';
 
 const routes: Routes = [
   {
@@ -68,6 +69,7 @@ export class CoreModule {
       providers: [
         AuthService,
         AuthGuard,
+        RoleGuard,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: RequestInterceptor,

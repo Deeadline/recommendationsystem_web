@@ -1,3 +1,27 @@
 :host {
   width: 100%;
+
+  .wrapper > mat-card-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .select-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+  }
+
+  .genre-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .autocomplete-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 0.5rem;
+  }
 }
