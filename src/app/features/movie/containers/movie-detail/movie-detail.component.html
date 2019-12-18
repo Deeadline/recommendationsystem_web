@@ -1,1 +1,40 @@
-{{movie | json}}
+<mat-card class="wrapper" *ngIf="!showSpinner else loader">
+  <mat-card-header>
+    <mat-card-title>
+      {{movie.title}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      <mat-chip-list>
+        <mat-chip *ngFor="let genre of movie.genres">{{genre.name}}</mat-chip>
+        <ngb-rating [(rate)]="movie.currentUserFeedback.rate" (rateChange)="onRateChange($event)"></ngb-rating>
+      </mat-chip-list>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <form [formGroup]="form" (ngSubmit)="addComment()">
+            <mat-form-field>
+              <textarea matInput placeholder="Komentarz" formControlName="description"></textarea>
+            </mat-form-field>
+            <button type="submit" class="btn btn-outline-secondary">
+              Dodaj komentarz
+            </button>
+          </form>
+        </div>
+        <div *ngIf="movie.comments.length > 0" class="col-8">
+          <div class="row" *ngFor="let comment of movie.comments">
+            <div class="col-6">
+              {{comment.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #loader>
+  <mat-spinner color="accent" mode="indeterminate" *ngIf="showSpinner"></mat-spinner>
+</ng-template>

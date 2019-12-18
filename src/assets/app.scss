@@ -136,8 +136,25 @@ mat-card-actions {
   margin-bottom: 0;
 }
 
-.card-body {
+.min-card-body {
   max-height: 15rem;
   min-height: 10rem;
   flex-basis: 15%;
+}
+
+ngb-rating {
+  font-size: 1.1rem;
+  color: #ffbd26;
+}
+
+.card {
+  width: 100%;
+
+  .card-body {
+    width: 100%;
+  }
+
+  .card-footer {
+    width: 100%;
+  }
 }

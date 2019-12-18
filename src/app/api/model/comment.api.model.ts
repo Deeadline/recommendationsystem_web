@@ -1,4 +1,4 @@
-import {Exclude, Expose, Transform} from 'class-transformer';
+import {Exclude, Expose, Type} from 'class-transformer';
 
 @Exclude()
 export class CommentApiModel {
@@ -15,10 +15,10 @@ export class CommentApiModel {
   public movieId: number;
 
   @Expose()
-  @Transform((value) => Date)
+  @Type(() => Date)
   public createdAt: Date;
 
   @Expose()
-  @Transform((value) => Date)
+  @Type(() => Date)
   public updatedAt: Date;
 }

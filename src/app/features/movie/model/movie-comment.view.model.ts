@@ -25,7 +25,14 @@ export class MovieCommentViewModel extends CoreViewModel<CommentApiModel> {
   }
 
   toApiModel(): CommentApiModel {
-    return Object.assign(this.apiModel, this);
+    return Object.assign(this.apiModel, {
+      description: this.description,
+      createdAt: this.createdAt,
+      id: this.id,
+      movieId: this.movieId,
+      updatedAt: this.updatedAt,
+      userId: this.userId
+    });
   }
 
   applyForm(form: FormGroup) {

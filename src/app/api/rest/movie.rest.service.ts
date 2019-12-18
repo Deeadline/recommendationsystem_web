@@ -32,24 +32,15 @@ export class MovieRestService {
   }
 
   public addMovie(movieId: number, request: MovieApiModel): Observable<MovieApiModel> {
-    return this.httpService.post<MovieApiModel>(`/api/movies`, classToPlain(request))
-      .pipe(
-        map((result) => plainToClass(MovieApiModel, result as object))
-      );
+    return this.httpService.post<MovieApiModel>(`/api/movies`, classToPlain(request));
   }
 
   public updateMovie(request: MovieApiModel): Observable<boolean> {
-    return this.httpService.put<boolean>(`/api/movies/${request.id}`, classToPlain(request))
-      .pipe(
-        map((result) => result)
-      );
+    return this.httpService.put<boolean>(`/api/movies/${request.id}`, classToPlain(request));
   }
 
   public deleteMovie(movieId: number, commentId: number): Observable<boolean> {
-    return this.httpService.delete<boolean>(`/api/movies/${movieId}/comments/${commentId}`)
-      .pipe(
-        map((result) => result)
-      );
+    return this.httpService.delete<boolean>(`/api/movies/${movieId}/comments/${commentId}`);
   }
 
   public getRecommendations(): Observable<MovieApiModel[]> {
@@ -77,38 +68,32 @@ export class MovieRestService {
       );
   }
 
-  public addComment(movieId: number, request: CommentApiModel): Observable<boolean> {
-    return this.httpService.post<boolean>(`/api/movies/${movieId}/comments`, classToPlain(request))
+  public addComment(movieId: number, request: CommentApiModel): Observable<CommentApiModel> {
+    return this.httpService.post<CommentApiModel>(`/api/movies/${movieId}/comments`, classToPlain(request))
       .pipe(
-        map((result) => result)
+        map((result) => plainToClass(CommentApiModel, result as object))
       );
   }
 
-  public updateComment(movieId: number, request: CommentApiModel): Observable<boolean> {
-    return this.httpService.put<boolean>(`/api/movies/${movieId}/comments/${request.id}`, classToPlain(request))
+  public updateComment(movieId: number, request: CommentApiModel): Observable<CommentApiModel> {
+    return this.httpService.put<CommentApiModel>(`/api/movies/${movieId}/comments/${request.id}`, classToPlain(request))
       .pipe(
-        map((result) => result)
+        map((result) => plainToClass(CommentApiModel, result as object))
       );
   }
 
   public deleteComment(movieId: number, commentId: number): Observable<boolean> {
-    return this.httpService.delete<boolean>(`/api/movies/${movieId}/comments/${commentId}`)
-      .pipe(
-        map((result) => result)
-      );
+    return this.httpService.delete<boolean>(`/api/movies/${movieId}/comments/${commentId}`);
   }
 
-  public addFeedback(movieId: number, request: MovieFeedbackApiModel): Observable<boolean> {
-    return this.httpService.post<boolean>(`/api/movies/${movieId}/rates`, classToPlain(request))
+  public addFeedback(movieId: number, request: MovieFeedbackApiModel): Observable<MovieFeedbackApiModel> {
+    return this.httpService.post<MovieFeedbackApiModel>(`/api/movies/${movieId}/rates`, classToPlain(request))
       .pipe(
-        map((result) => result)
+        map((result) => plainToClass(MovieFeedbackApiModel, result as object))
       );
   }
 
   public updateFeedback(movieId: number, request: MovieFeedbackApiModel): Observable<boolean> {
-    return this.httpService.put<boolean>(`/api/movies/${movieId}/rates/${request.id}`, classToPlain(request))
-      .pipe(
-        map((result) => result)
-      );
+    return this.httpService.put<boolean>(`/api/movies/${movieId}/rates/${request.id}`, classToPlain(request));
   }
 }

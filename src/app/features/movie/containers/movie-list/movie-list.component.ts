@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {MovieViewModel} from '../../model/movie.view.model';
 import {MovieDataProvider} from '../../data-provider/movie.data-provider';
-import {MatAutocompleteSelectedEvent, MatOptionSelectionChange, MatSelectChange, PageEvent} from '@angular/material';
+import {MatSelectChange, PageEvent} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import {forkJoin, Observable} from 'rxjs';
-import {isEmpty, map, startWith} from 'rxjs/operators';
+import {map, startWith} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {GenreViewModel} from '../../model/genre.view.model';
 

@@ -15,6 +15,7 @@ import {
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 library.add(fas);
 
@@ -37,7 +38,8 @@ library.add(fas);
     MatTableModule,
     MatGridListModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgbModule
   ],
   exports: [
     MatCardModule,
@@ -55,7 +57,8 @@ library.add(fas);
     MatTableModule,
     MatGridListModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgbModule
   ]
 })
 export class SharedModule {
