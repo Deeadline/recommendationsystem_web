@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MovieDataProvider} from '../../data-provider/movie.data-provider';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MovieDetailViewModel} from '../../model/movie-detail.view.model';
 import {MovieCommentViewModel} from '../../model/movie-comment.view.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -21,11 +21,13 @@ export class MovieDetailComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dataProvider: MovieDataProvider,
-    private router: ActivatedRoute) {
+    private activateRoute: ActivatedRoute,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
-    this.router.params.subscribe(({id}: Params) => {
+    this.activateRoute.params.subscribe(({id}: Params) => {
       this.dataProvider
         .getMovie(id)
         .subscribe((value) => {
@@ -95,6 +97,14 @@ export class MovieDetailComponent implements OnInit {
           }
           return movie;
         });
+      });
+  }
+
+  deleteMovie() {
+    this.dataProvider
+      .deleteMovie(this.movie.id)
+      .subscribe(() => {
+        this.router.navigate(['/app', 'movies']);
       });
   }
 }

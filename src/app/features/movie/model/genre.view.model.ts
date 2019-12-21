@@ -23,7 +23,7 @@ export class GenreViewModel extends CoreViewModel<GenreApiModel> {
     });
   }
 
-  applyForm(form: FormGroup) {
-    Object.assign(this, form.value);
+  applyForm(form: FormGroup): this {
+    return Object.assign(this, form.value);
   }
 }

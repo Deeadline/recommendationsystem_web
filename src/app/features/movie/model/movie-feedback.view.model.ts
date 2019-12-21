@@ -25,7 +25,8 @@ export class MovieFeedbackViewModel extends CoreViewModel<MovieFeedbackApiModel>
       userId: this.userId
     });
   }
-  applyForm(form: FormGroup) {
-    Object.assign(this, form.value);
+
+  applyForm(form: FormGroup): this {
+    return Object.assign(this, form.value);
   }
 }

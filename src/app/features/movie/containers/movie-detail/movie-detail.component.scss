@@ -1,3 +1,8 @@
 :host {
   width: 100%;
+
+  .card {
+    max-height: 70vh;
+    overflow: auto;
+  }
 }

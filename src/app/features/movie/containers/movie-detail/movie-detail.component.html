@@ -62,6 +62,9 @@
         </div>
       </div>
     </div>
+    <ng-container *appRoleDirective="'admin'">
+      <button class="btn btn-outline-danger" (click)="deleteMovie()">Delete movie</button>
+    </ng-container>
   </mat-card-content>
 </mat-card>
 

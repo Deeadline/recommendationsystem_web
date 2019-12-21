@@ -42,8 +42,8 @@ export class MovieRestService {
     return this.httpService.put<boolean>(`/api/movies/${request.id}`, classToPlain(request));
   }
 
-  public deleteMovie(movieId: number, commentId: number): Observable<boolean> {
-    return this.httpService.delete<boolean>(`/api/movies/${movieId}/comments/${commentId}`);
+  public deleteMovie(movieId: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`/api/movies/${movieId}`);
   }
 
   public getRecommendations(): Observable<MovieApiModel[]> {

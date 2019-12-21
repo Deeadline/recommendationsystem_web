@@ -180,4 +180,9 @@ export class MovieDataProvider {
     return this.movieRestService
       .deleteComment(movieId, id);
   }
+
+  deleteMovie(id: number) {
+    return this.movieRestService
+      .deleteMovie(id);
+  }
 }
