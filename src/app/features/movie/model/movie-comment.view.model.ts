@@ -1,6 +1,7 @@
 import {CoreViewModel} from '../../../core/model/core.view.model';
 import {CommentApiModel} from '../../../api/model/comment.api.model';
 import {FormGroup} from '@angular/forms';
+import {UserViewModel} from '../../../core/model/user.view.model';
 
 export class MovieCommentViewModel extends CoreViewModel<CommentApiModel> {
   public id: number = null;
@@ -9,6 +10,7 @@ export class MovieCommentViewModel extends CoreViewModel<CommentApiModel> {
   public updatedAt: Date = null;
   public userId: number = null;
   public movieId: number = null;
+  public user: UserViewModel = null;
 
   constructor(protected apiModel: CommentApiModel = new CommentApiModel()) {
     super(apiModel);
@@ -35,7 +37,7 @@ export class MovieCommentViewModel extends CoreViewModel<CommentApiModel> {
     });
   }
 
-  applyForm(form: FormGroup) {
-    Object.assign(this, form.value);
+  applyForm(form: FormGroup): this {
+    return Object.assign(this, form.value);
   }
 }

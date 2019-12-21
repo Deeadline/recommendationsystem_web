@@ -38,7 +38,7 @@ export class MovieDetailViewModel extends CoreViewModel<MovieDetailApiModel> {
       numberOfVotes: this.numberOfVotes
     });
   }
-  applyForm(form: FormGroup) {
-    Object.assign(this, form.value);
+  applyForm(form: FormGroup): this {
+    return Object.assign(this, form.value);
   }
 }

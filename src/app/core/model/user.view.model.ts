@@ -14,7 +14,8 @@ export class UserViewModel extends CoreViewModel<UserApiModel> {
     this.fromApiModel();
   }
 
-  applyForm(form: FormGroup) {
+  applyForm(form: FormGroup): this {
+    return this;
   }
 
   fromApiModel(): void {
@@ -26,5 +27,9 @@ export class UserViewModel extends CoreViewModel<UserApiModel> {
 
   toApiModel(): UserApiModel {
     return this.apiModel;
+  }
+
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
   }
 }

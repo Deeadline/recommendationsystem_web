@@ -1,0 +1,51 @@
+<mat-card class="wrapper" *ngIf="!showSpinner else loader">
+  <mat-card-header>
+    <mat-card-title>
+      Edit movie
+    </mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="formGroup" (ngSubmit)="submit()">
+    <div class="card">
+      <div class="card-body">
+        <mat-form-field>
+          <input matInput placeholder="Title" formControlName="title"/>
+          <mat-error *ngIf="formGroup.get('title').hasError('required')">
+            Release year is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="(formGroup.get('title').hasError('minLength') || formGroup.get('title').hasError('maxLength'))
+             && !formGroup.get('title').hasError('required')">
+            Title should have minimum 3 and maximum 255 characters.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" formControlName="releaseYear" placeholder="Release year"/>
+          <mat-error *ngIf="formGroup.get('releaseYear').hasError('required')">
+            Release year is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="(formGroup.get('releaseYear').hasError('min') || formGroup.get('releaseYear').hasError('max'))
+             && !formGroup.get('releaseYear').hasError('required')">
+            Release year should be between 1901 and 2020 year.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Genres</mat-label>
+          <mat-select formControlName="genres" multiple [compareWith]="compareFn">
+            <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="formGroup.get('genres').hasError('required')">
+            Genres is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-footer text-right">
+        <button type="submit" mat-raised-button color="primary">Save</button>
+      </div>
+    </div>
+  </form>
+</mat-card>
+
+<ng-template #loader>
+  <mat-spinner color="accent" mode="indeterminate" *ngIf="showSpinner"></mat-spinner>
+</ng-template>

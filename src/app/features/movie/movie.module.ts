@@ -9,16 +9,18 @@ import {RouterModule} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MovieDetailComponent } from './containers/movie-detail/movie-detail.component';
+import { MovieCreateComponent } from './containers/movie-create/movie-create.component';
+import { MovieEditComponent } from './containers/movie-edit/movie-edit.component';
 
 
 @NgModule({
-  declarations: [MovieRecommendationComponent, MovieListComponent, MovieDetailComponent],
+  declarations: [MovieRecommendationComponent, MovieListComponent, MovieDetailComponent, MovieCreateComponent, MovieEditComponent],
   imports: [
-    SharedModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
-    MovieRoutingModule
+    MovieRoutingModule,
+    SharedModule.forRoot()
   ],
   providers: [
     MovieDataProvider

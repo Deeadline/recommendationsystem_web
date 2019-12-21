@@ -23,11 +23,41 @@
             </button>
           </form>
         </div>
-        <div *ngIf="movie.comments.length > 0" class="col-8">
-          <div class="row" *ngFor="let comment of movie.comments">
-            <div class="col-6">
-              {{comment.description}}
-            </div>
+        <div class="row">
+          <div *ngIf="movie.comments.length > 0" class="col-6 my-3">
+            <ng-container *ngFor="let comment of movie.comments">
+              <div class="card my-2" style="max-width: 25vw">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <div class="row">
+                        <div class="col">
+                          {{comment.user.fullName}}
+                        </div>
+                        <div class="col">{{comment.updatedAt | date:'short'}}</div>
+                        <div class="col">
+                          <mat-icon style="cursor: pointer;" (click)="toggleEdit(comment.id)">edit</mat-icon>
+                          <mat-icon style="cursor: pointer;" *appRoleDirective="'admin'" color="warn"
+                                    (click)="delete(comment.id)">delete
+                          </mat-icon>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col" *ngIf="!copyComment || copyComment.id !== comment.id">
+                          {{comment.description}}
+                        </div>
+                        <div *ngIf="copyComment && copyComment.id === comment.id" class="col d-flex align-items-center">
+                          <mat-form-field>
+                            <textarea matInput [(ngModel)]="description" placeholder="Comment"></textarea>
+                          </mat-form-field>
+                          <button type="submit" (click)="update()" class="btn btn-outline-success ml-2">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>

@@ -10,11 +10,5 @@ export const navigationLinks = [
     id: 'movies',
     icon: 'movie',
     roles: ['admin', 'user']
-  },
-  {
-    title: 'Administration panel',
-    id: 'admin',
-    icon: 'person',
-    roles: ['admin']
   }
 ];

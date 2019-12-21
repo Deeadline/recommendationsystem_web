@@ -11,6 +11,7 @@ import {MovieCommentViewModel} from '../model/movie-comment.view.model';
 import {MovieFeedbackViewModel} from '../model/movie-feedback.view.model';
 import {CommentApiModel} from '../../../api/model/comment.api.model';
 import {UserRestService} from '../../../api/rest/user.rest.service';
+import {UserViewModel} from '../../../core/model/user.view.model';
 
 @Injectable()
 export class MovieDataProvider {
@@ -19,6 +20,22 @@ export class MovieDataProvider {
     private movieRestService: MovieRestService,
     private userRestService: UserRestService
   ) {
+  }
+
+  public addMovie(movie: MovieViewModel): Observable<MovieViewModel> {
+    return this.movieRestService
+      .addMovie(movie.toApiModel())
+      .pipe(
+        map((result) => new MovieViewModel(result))
+      );
+  }
+
+  public editMovie(movie: MovieDetailViewModel): Observable<MovieDetailViewModel> {
+    return this.movieRestService
+      .updateMovie(movie.toApiModel())
+      .pipe(
+        map((result) => movie)
+      );
   }
 
   public getList(): Observable<MovieViewModel[]> {
@@ -42,25 +59,29 @@ export class MovieDataProvider {
       this.userRestService.current(),
       this.movieRestService.getById(id))
       .pipe(
-        mergeMap(([{id: userId}, movie]) => {
+        mergeMap(([user, movie]) => {
           return this.getAllGenres()
             .pipe(
               map((result) => {
                 const viewModel = new MovieDetailViewModel(movie);
                 const newMovieFeedbackViewModel = new MovieFeedbackViewModel();
-                newMovieFeedbackViewModel.userId = userId;
+                newMovieFeedbackViewModel.userId = user.id;
                 viewModel.currentUserFeedback =
                   movie.feedback !== null ? new MovieFeedbackViewModel(movie.feedback) : newMovieFeedbackViewModel;
                 viewModel.genres = result.filter(r => movie.genresIds.includes(r.id));
-                return viewModel;
+                return {user, viewModel};
               })
             );
         }),
-        mergeMap((movie: MovieDetailViewModel) => {
+        mergeMap(({user, viewModel: movie}) => {
           return this.movieRestService.getComments(movie.id)
             .pipe(
               map((comments: CommentApiModel[]) => {
-                movie.comments = comments.map(comment => new MovieCommentViewModel(comment));
+                movie.comments = comments.map(comment => {
+                  const movieComment = new MovieCommentViewModel(comment);
+                  movieComment.user = new UserViewModel(user);
+                  return movieComment;
+                });
                 return movie;
               })
             );
@@ -127,17 +148,36 @@ export class MovieDataProvider {
           return this.movieRestService
             .addComment(comment.movieId, comment.toApiModel())
             .pipe(
-              map((result) => new MovieCommentViewModel(result))
+              map((result) => {
+                const movieComment = new MovieCommentViewModel(result);
+                movieComment.user = new UserViewModel(user);
+                return movieComment;
+              })
             );
         })
       );
   }
 
   public updateComment(comment: MovieCommentViewModel): Observable<MovieCommentViewModel> {
-    return this.movieRestService
-      .updateComment(comment.movieId, comment.toApiModel())
+    return this.userRestService.current()
       .pipe(
-        map((result) => new MovieCommentViewModel(result))
+        mergeMap((user) => {
+          comment.userId = user.id;
+          return this.movieRestService
+            .updateComment(comment.movieId, comment.toApiModel())
+            .pipe(
+              map((result) => {
+                const movieComment = new MovieCommentViewModel(result);
+                movieComment.user = new UserViewModel(user);
+                return movieComment;
+              })
+            );
+        })
       );
+  }
+
+  public deleteComment(movieId, id: number): Observable<boolean> {
+    return this.movieRestService
+      .deleteComment(movieId, id);
   }
 }

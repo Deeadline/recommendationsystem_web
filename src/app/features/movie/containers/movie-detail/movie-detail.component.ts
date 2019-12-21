@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MovieDataProvider} from '../../data-provider/movie.data-provider';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {MovieDetailViewModel} from '../../model/movie-detail.view.model';
 import {MovieCommentViewModel} from '../../model/movie-comment.view.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -15,6 +15,8 @@ export class MovieDetailComponent implements OnInit {
   public movie: MovieDetailViewModel;
   public showSpinner = true;
   public form: FormGroup;
+  public description: string;
+  private copyComment: MovieCommentViewModel;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,14 +56,45 @@ export class MovieDetailComponent implements OnInit {
       this.showSpinner = true;
       const model = new MovieCommentViewModel();
       model.movieId = this.movie.id;
-      model.applyForm(this.form);
+
       this.dataProvider
-        .addComment(model)
+        .addComment(model.applyForm(this.form))
         .subscribe((item) => {
           this.form.reset();
           this.movie.comments.push(item);
           this.showSpinner = false;
         });
     }
+  }
+
+  toggleEdit(id: number) {
+    this.copyComment = this.movie.comments.find(comment => comment.id === id);
+    this.description = this.copyComment.description;
+  }
+
+  delete(id: number) {
+    this.showSpinner = true;
+    this.dataProvider
+      .deleteComment(this.movie.id, id)
+      .subscribe(() => {
+        this.movie.comments = this.movie.comments.filter((comment) => comment.id !== id);
+        this.showSpinner = false;
+      });
+  }
+
+  update() {
+    this.copyComment.description = this.description;
+    this.dataProvider
+      .updateComment(this.copyComment)
+      .subscribe((v) => {
+        this.copyComment = null;
+        this.description = null;
+        this.movie.comments = this.movie.comments.map((movie) => {
+          if (movie.id === v.id) {
+            movie = v;
+          }
+          return movie;
+        });
+      });
   }
 }

@@ -17,7 +17,6 @@ import {MovieModule} from '../features/movie/movie.module';
 import {ApiModule} from '../api/api.module';
 import {AuthDataProvider} from './data-provider/auth.data-provider';
 import {RoleGuard} from './guard/role.guard';
-import {AdminModule} from '../features/admin/admin.module';
 
 const routes: Routes = [
   {
@@ -45,8 +44,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     AuthModule,
     MovieModule,
-    AdminModule,
-    SharedModule,
+    SharedModule.forRoot(),
   ],
   exports: [
     RouterModule,

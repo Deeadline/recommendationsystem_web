@@ -9,5 +9,5 @@ export abstract class CoreViewModel<T> {
 
   abstract toApiModel(): T;
 
-  abstract applyForm(form: FormGroup);
+  abstract applyForm(form: FormGroup): this;
 }

@@ -31,8 +31,11 @@ export class MovieRestService {
       );
   }
 
-  public addMovie(movieId: number, request: MovieApiModel): Observable<MovieApiModel> {
-    return this.httpService.post<MovieApiModel>(`/api/movies`, classToPlain(request));
+  public addMovie(request: MovieApiModel): Observable<MovieApiModel> {
+    return this.httpService.post<MovieApiModel>(`/api/movies`, classToPlain(request))
+      .pipe(
+        map((result) => plainToClass(MovieApiModel, result as object))
+      );
   }
 
   public updateMovie(request: MovieApiModel): Observable<boolean> {

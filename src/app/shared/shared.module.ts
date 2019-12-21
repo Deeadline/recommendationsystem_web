@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
   MatAutocompleteModule,
@@ -16,11 +16,19 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {RoleDirective} from './directives/role.directive';
+import {AuthService} from '../core/service/auth.service';
+import {AuthGuard} from '../core/guard/auth.guard';
+import {RoleGuard} from '../core/guard/role.guard';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {RequestInterceptor} from '../core/interceptor/request.interceptor';
+import {JwtTokenInterceptor} from '../core/interceptor/jwt-token.interceptor';
+import {ResponseInterceptor} from '../core/interceptor/response.interceptor';
 
 library.add(fas);
 
 @NgModule({
-  declarations: [],
+  declarations: [RoleDirective],
   imports: [
     CommonModule,
     MatCardModule,
@@ -58,8 +66,17 @@ library.add(fas);
     MatGridListModule,
     MatSelectModule,
     MatAutocompleteModule,
-    NgbModule
+    NgbModule,
+    RoleDirective
   ]
 })
 export class SharedModule {
+  public static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [
+        RoleDirective
+      ],
+    };
+  }
 }

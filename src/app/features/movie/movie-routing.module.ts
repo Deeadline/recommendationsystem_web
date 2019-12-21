@@ -6,6 +6,8 @@ import {MovieRecommendationComponent} from './containers/movie-recommendation/mo
 import {MovieListComponent} from './containers/movie-list/movie-list.component';
 import {MovieDetailComponent} from './containers/movie-detail/movie-detail.component';
 import {RoleGuard} from '../../core/guard/role.guard';
+import {MovieCreateComponent} from './containers/movie-create/movie-create.component';
+import {MovieEditComponent} from './containers/movie-edit/movie-edit.component';
 
 
 const routes: Routes = [
@@ -34,6 +36,22 @@ const routes: Routes = [
         data: {
           title: 'Detail movie',
           roles: ['admin', 'user']
+        }
+      },
+      {
+        path: 'create',
+        component: MovieCreateComponent,
+        data: {
+          title: 'Create movie',
+          roles: ['admin']
+        }
+      },
+      {
+        path: ':id/edit',
+        component: MovieEditComponent,
+        data: {
+          title: 'Create movie',
+          roles: ['admin']
         }
       }
     ]

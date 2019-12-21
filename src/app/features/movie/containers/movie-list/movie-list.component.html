@@ -31,7 +31,12 @@
     <mat-card class="min-card-body" *ngFor="let movie of movies" [routerLink]="['/app','movies', movie.id, 'detail']"
               style="cursor: pointer;">
       <mat-card-header>
-        <mat-card-title>{{movie.title}}</mat-card-title>
+        <mat-card-title style="display: flex; align-items: center; justify-content: space-around">
+          <span>{{movie.title}}</span>
+          <ng-container *appRoleDirective="'admin'">
+            <mat-icon style="z-index: 999;" [routerLink]="['/app','movies',movie.id,'edit']">edit</mat-icon>
+          </ng-container>
+        </mat-card-title>
         <mat-card-subtitle>
           <mat-chip-list>
             <mat-chip *ngFor="let genre of movie.genres">{{genre.name}}</mat-chip>
@@ -49,6 +54,11 @@
     [pageSize]="10"
     (page)="onChange($event)"
   ></mat-paginator>
+  <mat-card-footer *appRoleDirective="'admin'">
+    <mat-card-actions>
+      <a [routerLink]="['/app','movies','create']" class="mat-primary" mat-raised-button>Add movie</a>
+    </mat-card-actions>
+  </mat-card-footer>
 </mat-card>
 
 <ng-template #loader>
